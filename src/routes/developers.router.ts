@@ -1,6 +1,6 @@
 import { Router } from "express";
 import developerController from "../controllers/developer.controller";
-import { emailAlreadyExistsMiddleware, infosAlreadyExists, verifyIdParam } from "../middlewares";
+import { developerInfosAlreadyExists, emailAlreadyExistsMiddleware, verifyIdParam, verifyOS } from "../middlewares";
 
 
 const developersRouter: Router = Router()
@@ -13,6 +13,6 @@ developersRouter.get("/:id", developerController.retrieveDeveloper)
 developersRouter.patch("/:id",emailAlreadyExistsMiddleware , developerController.updateDeveloper)
 developersRouter.delete("/:id", developerController.destroyDeveloper)
 
-developersRouter.post("/:id/infos", developerController.createDeveloperInfos)
+developersRouter.post("/:id/infos", developerInfosAlreadyExists, verifyOS, developerController.createDeveloperInfos)
 
 export default developersRouter

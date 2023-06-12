@@ -48,10 +48,7 @@ const createInfos = async (payload: iDeveloperInfosCreate):Promise<iDeveloperInf
         Object.values(payload)
     )
 
-
     const query:iDeveloperInfosResult = await client.query(queryFormat)
-
-    console.log("PASSOU")
 
     return query.rows[0]
 }
