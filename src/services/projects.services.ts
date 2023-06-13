@@ -1,4 +1,4 @@
-import { iDeveloper, iDeveloperResult } from './../interfaces/developer.interface';
+import { iDeveloperResult } from './../interfaces/developer.interface';
 import  format  from 'pg-format';
 import { iProjectResult, iProjectCreate, iProjectUpdate, iProjectRetrieveReturn } from './../interfaces/projects.interface';
 import { iProject } from "../interfaces/projects.interface";
