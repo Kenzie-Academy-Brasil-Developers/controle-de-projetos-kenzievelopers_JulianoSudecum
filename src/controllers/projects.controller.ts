@@ -1,4 +1,4 @@
-import { iProject } from './../interfaces/projects.interface';
+import { iProject, iProjectRetrieveReturn } from './../interfaces/projects.interface';
 import { Request, Response } from "express";
 import projectsServices from '../services/projects.services';
 
@@ -8,7 +8,7 @@ const createProject = async (req: Request, res: Response): Promise<Response> => 
 }
 
 const readProject = async (req: Request, res: Response): Promise<Response> => {
-    const project:iProject = await projectsServices.retrieveProject(req.params.id)
+    const project:iProjectRetrieveReturn = await projectsServices.retrieveProject(req.params.id)
     return res.status(200).json(project)
 }
 

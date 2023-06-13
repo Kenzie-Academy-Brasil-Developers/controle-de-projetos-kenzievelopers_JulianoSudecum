@@ -1,7 +1,7 @@
 import { iDeveloperResult } from './../interfaces/developer.interface';
 import { NextFunction, Request, Response } from "express";
 import { client } from '../database';
-import AppError from '../error';
+import {AppError} from '../error';
 
 const developerInfosAlreadyExists = async (req:Request, res: Response, next: NextFunction):Promise<void> => {
     const { id } = req.params

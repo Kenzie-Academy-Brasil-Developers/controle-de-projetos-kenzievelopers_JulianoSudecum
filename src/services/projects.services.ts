@@ -1,16 +1,32 @@
+import { iDeveloper, iDeveloperResult } from './../interfaces/developer.interface';
 import  format  from 'pg-format';
-import { iProjectResult, iProjectCreate, iProjectUpdate } from './../interfaces/projects.interface';
-import { query } from 'express';
+import { iProjectResult, iProjectCreate, iProjectUpdate, iProjectRetrieveReturn } from './../interfaces/projects.interface';
 import { iProject } from "../interfaces/projects.interface";
 import { client } from '../database';
 
-const retrieveProject = async (projectId: string):Promise<iProject> =>{
+const retrieveProject = async (projectId: string):Promise<iProjectRetrieveReturn> =>{
 
     const query: iProjectResult = await client.query(
         'SELECT * FROM "projects" WHERE "id" = $1;',[projectId]
     )
 
-    return query.rows[0]
+    const projectInfo = query.rows[0]
+
+    const developerOwner:iDeveloperResult = await client.query(
+        'SELECT * FROM "developers" WHERE "id" = $1;',[projectInfo.developerId]
+    )
+
+    const projectReturn:iProjectRetrieveReturn = {
+        projectId: projectInfo.id,
+        projectName: projectInfo.name,
+        projectDescription: projectInfo.description,
+        projectRepository: projectInfo.repository,
+        projectStartDate: projectInfo.startDate,
+        projectEndDate: projectInfo.endDate,
+        projectDeveloperName: developerOwner.rows[0].name
+    }
+
+    return projectReturn
 }
 
 const createProject = async (payload: iProjectCreate):Promise<iProject> => {

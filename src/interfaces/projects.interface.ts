@@ -13,3 +13,13 @@ export interface iProject {
 export type iProjectCreate = Omit<iProject, "id" | "developerId">
 export type iProjectUpdate = Partial<iProjectCreate>
 export type iProjectResult = QueryResult<iProject>
+
+export interface iProjectRetrieveReturn {
+    projectId: number,
+    projectName: string,
+    projectDescription: string,
+    projectRepository: string,
+    projectStartDate: Date,
+    projectEndDate: Date | null | undefined,
+    projectDeveloperName: string
+}

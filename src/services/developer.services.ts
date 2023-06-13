@@ -1,8 +1,7 @@
-import { iDeveloperCreate, iDeveloperResult, iDeveloperUpdate, iDeveloperInfosCreate, iDeveloperInfosResult, iDeveloperInfos } from './../interfaces/developer.interface';
+import { iDeveloperCreate, iDeveloperResult, iDeveloperUpdate, iDeveloperInfosCreate, iDeveloperInfosResult, iDeveloperInfos, iDeveloperRetrieveResult } from './../interfaces/developer.interface';
 import { iDeveloper } from "../interfaces/developer.interface";
 import format from 'pg-format';
 import { client } from '../database';
-import { query } from 'express';
 
 const create = async(payload:iDeveloperCreate):Promise<iDeveloper> => {
     
@@ -17,12 +16,28 @@ const create = async(payload:iDeveloperCreate):Promise<iDeveloper> => {
     return query.rows[0]
 }
 
-const retrieve = async (developerId:string):Promise<iDeveloper> =>{
+const retrieve = async (developerId:string):Promise<iDeveloperRetrieveResult> =>{
     const query:iDeveloperResult = await client.query(
         'SELECT * FROM "developers" WHERE "id" = $1',[developerId]
     )
 
-    return query.rows[0]
+    const queryInfos:iDeveloperInfosResult = await client.query(
+        'SELECT * FROM "developerInfos" WHERE "developerId" = $1',[developerId]
+    )
+
+    const developer =  {...query.rows[0]}
+    const infos = {...queryInfos.rows[0]}
+
+    const ObjResult:iDeveloperRetrieveResult = {
+        developerId: developer.id,
+        developerName: developer.name,
+        developerEmail: developer.email,
+        developerInfoDeveloperSince: infos.developerSince || null,
+        developerInfoPreferredOS: infos.preferredOs || null
+    }
+    
+
+    return ObjResult
 }
 
 const destroy = async (developerId:string):Promise<void> =>{

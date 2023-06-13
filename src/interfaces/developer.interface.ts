@@ -20,3 +20,11 @@ export interface iDeveloperInfos {
 
 export type iDeveloperInfosCreate = Omit<iDeveloperInfos, "id" | "developerId">
 export type iDeveloperInfosResult = QueryResult<iDeveloperInfos>
+
+export interface iDeveloperRetrieveResult {
+    developerId: number,
+    developerName: string,
+    developerEmail: string,
+    developerInfoDeveloperSince: Date | null,
+    developerInfoPreferredOS: "Windows" | "Linux" | "MacOS" | null
+}

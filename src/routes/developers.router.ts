@@ -10,7 +10,7 @@ developersRouter.use("/:id", verifyIdParam)
 developersRouter.post("", developerController.createDeveloper)
 
 developersRouter.get("/:id", developerController.retrieveDeveloper)
-developersRouter.patch("/:id",emailAlreadyExistsMiddleware , developerController.updateDeveloper)
+developersRouter.patch("/:id", emailAlreadyExistsMiddleware, developerController.updateDeveloper)
 developersRouter.delete("/:id", developerController.destroyDeveloper)
 
 developersRouter.post("/:id/infos", developerInfosAlreadyExists, verifyOS, developerController.createDeveloperInfos)

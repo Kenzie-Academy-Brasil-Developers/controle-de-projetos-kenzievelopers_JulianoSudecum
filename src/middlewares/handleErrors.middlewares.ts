@@ -1,13 +1,18 @@
-import { Request, Response } from "express";
-import AppError from "../error";
+import { NextFunction, Request, Response } from "express";
+import {AppError} from "../error";
 
-const handleError = (error:Error, req: Request, res: Response): Response =>{
-    if(error instanceof AppError){
-        return res.status(error.statusCode).json({message: error.message})
+const handleError = (
+    err: Error,
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ) => {
+    if (err instanceof AppError) {
+      return res.status(err.statusCode).json({ message: err.message });
     }
+  
+    console.error(err);
+    return res.status(500).json({ message: "Internal Server Error." });
+  };
 
-    console.error(error)
-    return res.status(500).json({message: "Internal Server Error"})
-}
-
-export default handleError
+export default handleError 

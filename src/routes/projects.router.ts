@@ -1,11 +1,11 @@
 import { Router } from "express";
 import projectsController from "../controllers/projects.controller";
-import { bodyIdExists, verifyIdParam } from "../middlewares";
+import { bodyIdExists, projectVerifyId } from "../middlewares";
 
 
 const projectsRouter: Router = Router()
 
-projectsRouter.use("/:id", verifyIdParam)
+projectsRouter.use("/:id", projectVerifyId)
 
 projectsRouter.post("", bodyIdExists, projectsController.createProject)
 projectsRouter.get("/:id", projectsController.readProject)

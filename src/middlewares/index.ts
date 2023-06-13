@@ -5,6 +5,7 @@ import infosAlreadyExists from "./infosAlreadyExists.middleware";
 import bodyIdExists from "./bodyIdExists.middleware";
 import verifyOS from "./otherOS.middlewares";
 import developerInfosAlreadyExists from "./developerInfosAlreadyExists.middlewares";
+import projectVerifyId from "./projectIdVerify.middlewares";
 
 export {
     handleError,
@@ -13,5 +14,6 @@ export {
     infosAlreadyExists,
     bodyIdExists,
     verifyOS,
-    developerInfosAlreadyExists
+    developerInfosAlreadyExists,
+    projectVerifyId
 }

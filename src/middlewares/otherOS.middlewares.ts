@@ -1,7 +1,5 @@
-import { iProjectResult } from './../interfaces/projects.interface';
 import { NextFunction, Request, Response } from "express";
-import { client } from '../database';
-import AppError from '../error';
+import {AppError} from '../error';
 
 const verifyOS = async (req:Request, res: Response, next: NextFunction):Promise<void> => {
     const { preferredOS } = req.body

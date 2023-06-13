@@ -1,4 +1,4 @@
-import { iDeveloper, iDeveloperInfos, iDeveloperInfosCreate, iDeveloperCreate } from './../interfaces/developer.interface';
+import { iDeveloper, iDeveloperInfosCreate, iDeveloperRetrieveResult } from './../interfaces/developer.interface';
 import { Request, Response } from "express";
 import developerServices from '../services/developer.services';
 
@@ -8,7 +8,7 @@ const createDeveloper = async (req: Request, res: Response):Promise<Response> =>
 }
 
 const retrieveDeveloper = async (req: Request, res: Response):Promise<Response> => {
-    const developer: iDeveloper = await developerServices.retrieve(req.params.id)
+    const developer: iDeveloperRetrieveResult = await developerServices.retrieve(req.params.id)
     return res.status(200).json(developer)
 }
 
